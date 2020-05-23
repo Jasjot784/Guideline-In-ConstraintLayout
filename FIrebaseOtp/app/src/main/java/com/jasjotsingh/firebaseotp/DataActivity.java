@@ -28,7 +28,6 @@ import java.util.concurrent.TimeUnit;
 
 public class DataActivity extends AppCompatActivity implements View.OnClickListener {
     EditText etPhone, etOtp;
-    Bundle bundle;
     Button btSendOtp, btResendOtp, btVerifyOtp,btSignOut;
     String mVerificationId;
     private FirebaseAuth mAuth;
@@ -84,6 +83,7 @@ public class DataActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_send_otp:
+
                 PhoneAuthProvider.getInstance().verifyPhoneNumber(
                         etPhone.getText().toString(),        // Phone number to verify
                         1,                 // Timeout duration
@@ -109,6 +109,7 @@ public class DataActivity extends AppCompatActivity implements View.OnClickListe
                                 if (task.isSuccessful()) {
                                     reference.child("users").child(mVerificationId).setValue(etPhone.getText().toString());
                                     Toast.makeText(DataActivity.this, "Verification Success", Toast.LENGTH_SHORT).show();
+                                    dashboard();
                                 } else {
                                     if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                         Toast.makeText(DataActivity.this, "Verification Failed, Invalid credentials", Toast.LENGTH_SHORT).show();
@@ -123,5 +124,22 @@ public class DataActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
         }
+    }
+
+
+    public void dashboard(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser()==null){
+                    //do nothing
+                }
+                else{
+                    Intent intent = new Intent(DataActivity.this,DashboardActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }

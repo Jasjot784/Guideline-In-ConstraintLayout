@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 //    EditText editText;
 
     Button dataActivityButton;
+    TextView textView;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +48,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //editText = findViewById(R.id.phoneNumber);
+        button = findViewById(R.id.getOtpButton);
         dataActivityButton = findViewById(R.id.dataActivityButton);
+        textView = findViewById(R.id.textView);
         dataActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,DataActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 //        phoneNumber = editText.getText().toString();
@@ -106,5 +118,16 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                });
 //    }
-//    // [END sign_in_with_phone]
-}}
+//    // [END sign_in_with_ph
+}
+
+    @Override
+    protected void onStart() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user!=null){
+            Intent dashIntent = new Intent(MainActivity.this,DashboardActivity.class);
+            startActivity(dashIntent);
+        }
+        super.onStart();
+    }
+}
