@@ -3,6 +3,7 @@ package com.jasjotsingh.firebaseotp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
@@ -27,12 +28,12 @@ import java.util.concurrent.TimeUnit;
 
 public class DataActivity extends AppCompatActivity implements View.OnClickListener {
     EditText etPhone, etOtp;
+    Bundle bundle;
     Button btSendOtp, btResendOtp, btVerifyOtp,btSignOut;
     String mVerificationId;
     private FirebaseAuth mAuth;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference("Phone Number");
-    DatabaseReference reference2 = database.getReference("Verification Id");
     PhoneAuthProvider.ForceResendingToken mResendToken;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     @Override
@@ -106,7 +107,6 @@ public class DataActivity extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    FirebaseUser user = task.getResult().getUser();
                                     reference.child("users").child(mVerificationId).setValue(etPhone.getText().toString());
                                     Toast.makeText(DataActivity.this, "Verification Success", Toast.LENGTH_SHORT).show();
                                 } else {
