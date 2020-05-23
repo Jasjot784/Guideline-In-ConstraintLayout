@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1013086840738",
+    "firebase_url": "https://otpunderstood.firebaseio.com",
+    "project_id": "otpunderstood",
+    "storage_bucket": "otpunderstood.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013086840738:android:33d978e4bd7ed6c35af4fb",
+        "android_client_info": {
+          "package_name": "com.jasjotsingh.firebaseotp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1013086840738-nuhtehd2uhjusfgm00sul5r6pj37fvr6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkUeSoTiPfdiD2mfKbXMBvV2CUUkkCvKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1013086840738-nuhtehd2uhjusfgm00sul5r6pj37fvr6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
