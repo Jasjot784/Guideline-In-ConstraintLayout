@@ -19,7 +19,10 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class DataActivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,6 +30,9 @@ public class DataActivity extends AppCompatActivity implements View.OnClickListe
     Button btSendOtp, btResendOtp, btVerifyOtp,btSignOut;
     String mVerificationId;
     private FirebaseAuth mAuth;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference reference = database.getReference("Phone Number");
+    DatabaseReference reference2 = database.getReference("Verification Id");
     PhoneAuthProvider.ForceResendingToken mResendToken;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     @Override
@@ -101,6 +107,7 @@ public class DataActivity extends AppCompatActivity implements View.OnClickListe
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = task.getResult().getUser();
+                                    reference.child("users").child(mVerificationId).setValue(etPhone.getText().toString());
                                     Toast.makeText(DataActivity.this, "Verification Success", Toast.LENGTH_SHORT).show();
                                 } else {
                                     if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
